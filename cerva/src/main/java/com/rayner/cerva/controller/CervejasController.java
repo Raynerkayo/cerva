@@ -22,7 +22,7 @@ public class CervejasController {
 	public String cadastrar(@Valid Cerveja cerveja, BindingResult result){
 		if(result.hasErrors()){
 			System.out.println("Tem erros aqui!!!");
-		}
+		} //k
 		System.out.println("Cadastrar");
 		return "cerveja/CadastroCerveja";
 	}
