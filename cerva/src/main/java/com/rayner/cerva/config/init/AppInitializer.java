@@ -5,20 +5,20 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.rayner.cerva.config.config.WebConfig;
+import com.rayner.cerva.config.JPAConfig;
+import com.rayner.cerva.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Class<?>[] { JPAConfig.class };
 	}
 
-	//Para o |Spring "Achar" os controllers
+	// Para o |Spring "Achar" os controllers
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] {WebConfig.class};
+		return new Class<?>[] { WebConfig.class };
 	}
 
 	@Override
@@ -31,6 +31,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
-		return new Filter[]{ characterEncodingFilter };
+
+		return new Filter[] { characterEncodingFilter };
 	}
 }

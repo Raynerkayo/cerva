@@ -1,4 +1,5 @@
-package com.rayner.cerva.config.config;
+package com.rayner.cerva.config;
+
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

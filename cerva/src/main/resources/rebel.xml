@@ -6,4 +6,11 @@
 		</dir>
 	</classpath>
 
+	<web>
+		<link target="/">
+			<dir name="/home/rayner/git/cerva/cerva/src/main/webapp">
+			</dir>
+		</link>
+	</web>
+
 </application>

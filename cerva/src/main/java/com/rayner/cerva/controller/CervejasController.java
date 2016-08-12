@@ -2,8 +2,7 @@ package com.rayner.cerva.controller;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rayner.cerva.model.Cerveja;
+import com.rayner.cerva.repository.Cervejas;
 
 @Controller
 public class CervejasController {
-
-	private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
+	
+	@Autowired
+	private Cervejas cervejas;
 	
 	@RequestMapping("/cervejas/novo")
 	public String novo(Cerveja cerveja) {//já passo o objeto aqui para ser usado no thymeleaf, na validação
-		
-		logger.error("Logger de erro!");
-		logger.info("Logger de informação!");
-		
+		cervejas.findAll();
 		return "cerveja/CadastroCerveja";
 	}
 	

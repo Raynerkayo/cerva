@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+	<title>Cadastro de cidades</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>Cadastro de estilo de cerveja</h1>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="POST" th:object="${estilo}">
+			<div class="row">
+				<div class="col-sm-12 form-group">
+					<label for="nome">Nome</label>
+					<input id="nome" type="text" class="form-control">
+				</div>
+			</div>
+			<button class="btn btn-primary" type="submit">Salvar</button>
+		</form>
+	</div>
+
+</section>
+
+
+</html>
