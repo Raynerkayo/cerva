@@ -14,7 +14,7 @@ public enum Sabor {
 		this.descricao = descricacao;
 	}
 	
-	public String getSabor(){
+	public String getDescricao(){
 		return this.descricao;
 	}
 	

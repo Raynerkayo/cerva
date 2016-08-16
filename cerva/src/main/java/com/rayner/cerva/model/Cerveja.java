@@ -25,7 +25,7 @@ public class Cerveja implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long codigo;
 	
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku;
@@ -43,7 +43,7 @@ public class Cerveja implements Serializable{
 
 	private BigDecimal comissao;
 	
-	@Column(name = "quantidade_comissao")
+	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 	
 	@Enumerated(EnumType.STRING)
@@ -80,12 +80,12 @@ public class Cerveja implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getCodigo() {
+		return codigo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public BigDecimal getValor() {
@@ -148,7 +148,7 @@ public class Cerveja implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((comissao == null) ? 0 : comissao.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -161,10 +161,10 @@ public class Cerveja implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Cerveja other = (Cerveja) obj;
-		if (comissao == null) {
-			if (other.comissao != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!comissao.equals(other.comissao))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
