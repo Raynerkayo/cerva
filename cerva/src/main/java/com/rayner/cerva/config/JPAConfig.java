@@ -13,12 +13,14 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.rayner.cerva.model.Cerveja;
 import com.rayner.cerva.repository.Cervejas;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class)//vai buscar os repositórios onde tem o repositó de cerveja
+@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)//vai buscar os repositórios onde tem o repositó de cerveja
+@EnableTransactionManagement//serve para seja iniciado "manualmente" a transação
 public class JPAConfig {
 	
 	@Bean

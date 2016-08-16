@@ -14,12 +14,16 @@ import com.rayner.cerva.model.Cerveja;
 import com.rayner.cerva.model.Origem;
 import com.rayner.cerva.model.Sabor;
 import com.rayner.cerva.repository.EstiloRepository;
+import com.rayner.cerva.service.CadastroCervejaService;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
 	private EstiloRepository estilosRepository;	
+	
+	@Autowired
+	private CadastroCervejaService cervejaService;
 	
 	@RequestMapping("/cervejas/novo")
 	public String novo(Cerveja cerveja, Model model) {//já passo o objeto aqui para ser usado no thymeleaf, na validação
@@ -31,16 +35,13 @@ public class CervejasController {
 	
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public String cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
-		/*if (result.hasErrors()) {
+		if (result.hasErrors()) {
 			return novo(cerveja, model);//se houver erro, eu passo o mesmo objeto cerveja para get novo
-		}*/
+		}
 		
+		cervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!");
-		System.out.println(">>> sku: " + cerveja.getSku());
-		System.out.println("Sabor >>: " + cerveja.getSabor());
-		System.out.println("Origem >>:" + cerveja.getOrigem());
-		System.out.println("Estilo >>:" + cerveja.getEstilo());
+		
 		return "redirect:/cervejas/novo";
 	}
-	
  }

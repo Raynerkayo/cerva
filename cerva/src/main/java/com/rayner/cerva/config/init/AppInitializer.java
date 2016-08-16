@@ -6,13 +6,14 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.rayner.cerva.config.JPAConfig;
+import com.rayner.cerva.config.ServiceConfig;
 import com.rayner.cerva.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JPAConfig.class };
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class };
 	}
 
 	// Para o |Spring "Achar" os controllers
