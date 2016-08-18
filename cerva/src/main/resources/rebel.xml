@@ -8,6 +8,11 @@
 
 	<web>
 		<link target="/">
+			<dir name="/home/rayner/git/cerva/cerva/target/m2e-wtp/web-resources">
+				<exclude name="/"/>
+			</dir>
+		</link>
+		<link target="/">
 			<dir name="/home/rayner/git/cerva/cerva/src/main/webapp">
 			</dir>
 		</link>

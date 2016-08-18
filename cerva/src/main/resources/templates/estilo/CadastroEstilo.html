@@ -5,7 +5,7 @@
 	layout:decorator="'layout/LayoutPadrao'">
 
 <head>
-	<title>Cadastro de cidades</title>
+	<title>Cadastro de Estilos</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -17,11 +17,17 @@
 	</div>
 	
 	<div class="container-fluid">
+	
+		<th:block th:include="fragments/MensagemSucesso"></th:block>
+		
 		<form method="POST" th:object="${estilo}">
+
+		<th:block th:include="fragments/MensagensErroValidacao"></th:block>		
+		
 			<div class="row">
 				<div class="col-sm-12 form-group">
-					<label for="nome">Nome</label>
-					<input id="nome" type="text" class="form-control">
+					<label for="nome" class="label-control">Nome</label>
+					<input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}">
 				</div>
 			</div>
 			<button class="btn btn-primary" type="submit">Salvar</button>

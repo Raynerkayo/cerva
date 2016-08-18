@@ -3,5 +3,5 @@ $(function(){
 	decimal.maskMoney({thousands : '.', decimal : ','});
 	
 	var plain = $('.js-plain');
-	plain.maskMoney( { precision : 0 } );
+	plain.maskMoney( { precision : 0, thousands : '.' } );
 });

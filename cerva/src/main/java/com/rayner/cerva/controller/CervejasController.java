@@ -14,34 +14,41 @@ import com.rayner.cerva.model.Cerveja;
 import com.rayner.cerva.model.Origem;
 import com.rayner.cerva.model.Sabor;
 import com.rayner.cerva.repository.EstiloRepository;
-import com.rayner.cerva.service.CadastroCervejaService;
+import com.rayner.cerva.service.CervejaService;
+import com.rayner.cerva.service.exception.SkuJaExistente;
 
 @Controller
 public class CervejasController {
-	
+
 	@Autowired
-	private EstiloRepository estilosRepository;	
-	
+	private EstiloRepository estilosRepository;
+
 	@Autowired
-	private CadastroCervejaService cervejaService;
-	
+	private CervejaService cervejaService;
+
 	@RequestMapping("/cervejas/novo")
-	public String novo(Cerveja cerveja, Model model) {//já passo o objeto aqui para ser usado no thymeleaf, na validação
+	public String novo(Cerveja cerveja, Model model) {// já passo o objeto aqui
+														// para ser usado no
+														// thymeleaf, na
+														// validação
 		model.addAttribute("sabores", Sabor.values());
 		model.addAttribute("estilos", estilosRepository.findAll());
 		model.addAttribute("origens", Origem.values());
 		return "cerveja/CadastroCerveja";
 	}
-	
+
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public String cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			return novo(cerveja, model);//se houver erro, eu passo o mesmo objeto cerveja para get novo
+			return novo(cerveja, model);
 		}
-		
-		cervejaService.salvar(cerveja);
+		try {
+			cervejaService.salvar(cerveja);
+		} catch (SkuJaExistente skuJaExistente) {
+			result.rejectValue("sku", skuJaExistente.getMessage(), skuJaExistente.getMessage());
+			return novo(cerveja, model);
+		}
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!");
-		
 		return "redirect:/cervejas/novo";
 	}
- }
+}
