@@ -3,10 +3,14 @@ package com.rayner.cerva.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rayner.cerva.model.Estilo;
@@ -38,6 +42,22 @@ public class EstilosController {
 		}
 		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso");
 		return "redirect:/estilos/novo";
+	}
+	
+	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody  @Valid Estilo estilo, BindingResult result){
+		if(result.hasErrors()){
+			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
+		}
+		
+		try{
+			estilo = estiloService.salvar(estilo);
+		} catch(NomeEstiloJaCadastradoException exception){
+			return ResponseEntity.badRequest().body(exception.getMessage());
+		}
+		
+		System.out.println(">>> estilo: " + estilo.getNome());
+		return ResponseEntity.ok(estilo);		
 	}
 
 }
