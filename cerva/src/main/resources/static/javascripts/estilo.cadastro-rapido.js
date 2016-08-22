@@ -44,7 +44,7 @@ $(function(){
 	
 	function onEstiloSalvo(estilo){
 		var comboEstilo = $('#estilo');
-		comboEstilo.append('<option value=>' + estilo.codigo + '>' + estilo.nome + '</option>');
+		comboEstilo.append('<option value=' + estilo.codigo + '>' + estilo.nome + '</option>');
 		comboEstilo.val(estilo.codigo);
 		modal.modal('hide');
 	}

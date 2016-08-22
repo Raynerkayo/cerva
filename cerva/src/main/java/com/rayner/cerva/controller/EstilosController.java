@@ -18,17 +18,18 @@ import com.rayner.cerva.service.EstiloService;
 import com.rayner.cerva.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
+@RequestMapping(value = "/estilos")
 public class EstilosController {
 
 	@Autowired
 	private EstiloService estiloService;
 
-	@RequestMapping(value = "/estilos/novo", method = RequestMethod.GET)
+	@RequestMapping(value = "/novo", method = RequestMethod.GET)
 	public String novoEstilo(Estilo estilo) {
 		return "estilo/CadastroEstilo";
 	}
 
-	@RequestMapping(value = "/estilos/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public String salvar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return novoEstilo(estilo);
@@ -44,19 +45,18 @@ public class EstilosController {
 		return "redirect:/estilos/novo";
 	}
 	
-	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody  @Valid Estilo estilo, BindingResult result){
 		if(result.hasErrors()){
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
 		}
 		
-		try{
+		//try{
 			estilo = estiloService.salvar(estilo);
-		} catch(NomeEstiloJaCadastradoException exception){
+	/*	} catch(NomeEstiloJaCadastradoException exception){
 			return ResponseEntity.badRequest().body(exception.getMessage());
-		}
+		}*/
 		
-		System.out.println(">>> estilo: " + estilo.getNome());
 		return ResponseEntity.ok(estilo);		
 	}
 
