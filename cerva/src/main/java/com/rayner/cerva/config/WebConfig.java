@@ -28,6 +28,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.rayner.cerva.controller.CervejasController;
 import com.rayner.cerva.controller.converter.EstiloConverter;
+import com.rayner.cerva.thymeleaf.CervaDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -62,6 +63,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setEnableSpringELCompiler(true);
 		engine.setTemplateResolver(templateResolver());
 		engine.addDialect(new LayoutDialect());//adiconando o dialect de 3ºs
+		
+		engine.addDialect(new CervaDialect());
 		return engine;
 	}
 	
