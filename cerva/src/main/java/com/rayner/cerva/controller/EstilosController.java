@@ -39,25 +39,19 @@ public class EstilosController {
 			estiloService.salvar(estilo);
 		} catch (NomeEstiloJaCadastradoException excecao) {
 			result.rejectValue("nome", excecao.getMessage(), excecao.getMessage());
-			return novoEstilo(estilo);//se vir para cá, ele envia o objeto estilo de novo para o GET
+			return novoEstilo(estilo);// se vir para cá, ele envia o objeto estilo de novo para o GET
 		}
 		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso");
 		return "redirect:/estilos/novo";
 	}
-	
-	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<?> salvar(@RequestBody  @Valid Estilo estilo, BindingResult result){
-		if(result.hasErrors()){
+
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
+		if (result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
 		}
-		
-		//try{
-			estilo = estiloService.salvar(estilo);
-	/*	} catch(NomeEstiloJaCadastradoException exception){
-			return ResponseEntity.badRequest().body(exception.getMessage());
-		}*/
-		
-		return ResponseEntity.ok(estilo);		
+		estilo = estiloService.salvar(estilo);
+		return ResponseEntity.ok(estilo);
 	}
 
 }

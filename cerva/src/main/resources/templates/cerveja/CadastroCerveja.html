@@ -6,7 +6,10 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="'layout/LayoutPadrao'"
 	xmlns:cerva="rayner.com.br">
+<head>
 <title>Cadastro de Cerveja</title>
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
+</head>
 <body>
 <section layout:fragment="conteudo">
 
@@ -19,13 +22,9 @@
 	</div>
 	
 	<div class="container-fluid">
-										
-		<th:block th:include="fragments/MensagemSucesso"></th:block>
 	
 		<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
-			
-			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
-			
+			<cerva:mensagens></cerva:mensagens>			
 			<div class="row">
 				<div class="col-sm-2 form-group" cerva:classforerror="sku">
 						<label for="sku" class="control-label">SKU</label>
@@ -106,10 +105,29 @@
 						<div class="input-group-addon">%</div>	
 					</div>
 				</div>
-				
+				    
 				<div class="col-sm-3  form-group" cerva:classforerror="quantidadeEstoque">
 					<label for="estoque">Estoque</label>
 					<input id="estoque" placeholder="Informe a quantidade" type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-sm-12">
+					
+					<input type="hidden" th:field=*{foto}/>
+					<input type="hidden" th:field="*{contentType}"/>
+				
+					<label class="control-label">Foto</label>
+					
+					<div class="js-container-foto-cerveja" th:attr="data-url-fotos=@{/fotos}">
+						<div id="upload-drop" class="bw-upload">
+							<i class="glyphicon glyphicon-cloud-upload"></i>
+							<span>Arraste ou</span>
+							<a class="bw-upload-form-file">Selecione uma foto<input id="upload-select" type="file" accept=".jpg,.jpeg,.png,.pdf"/></a>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 			
@@ -120,9 +138,17 @@
 		</form>
 	</div>
 	<div th:replace="estilo/CadastroRapidoEstilo :: fragmento-modal"></div>
+	<th:block th:replace="hbs/FotoCerveja">
+		
+	</th:block>
 </section>
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/estilo.cadastro-rapido.js}"></script>
+	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/cerveja.upload-foto.js}"></script>
+	
 </th:block>
 </body>
 </html>

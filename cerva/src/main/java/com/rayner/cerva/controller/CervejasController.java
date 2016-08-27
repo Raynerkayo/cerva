@@ -27,10 +27,7 @@ public class CervejasController {
 	private CervejaService cervejaService;
 
 	@RequestMapping("/cervejas/novo")
-	public String novo(Cerveja cerveja, Model model) {// já passo o objeto aqui
-														// para ser usado no
-														// thymeleaf, na
-														// validação
+	public String novo(Cerveja cerveja, Model model) {
 		model.addAttribute("sabores", Sabor.values());
 		model.addAttribute("estilos", estilosRepository.findAll());
 		model.addAttribute("origens", Origem.values());
